@@ -14,26 +14,23 @@ const TITLE = {
 
 // Setup dotenv
 dotenv.config();
-
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// * Please DO NOT INCLUDE the private app access token in your repo. Don't do this practicum in your normal account.
 const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS_TOKEN;
 
-// TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 app.get("/", async (req, res) => {
-    const game_characters = 'https://api.hubspot.com/crm/v3/objects/2-146301108?properties=name,bio,country';
+    const game_characters_endpoint = 'https://api.hubspot.com/crm/v3/objects/2-146301108?properties=name,bio,country';
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     }
     try {
-        const resp = await axios.get(game_characters, { headers });
+        const resp = await axios.get(game_characters_endpoint, { headers });
         const characters = resp.data.results;
         res.render('homepage', { title: 'Game Characters | HubSpot APIs', characters });
     } catch (error) {
@@ -56,14 +53,14 @@ app.post("/update-cobj", async (req, res) => {
         }
     }
 
-    const updateContact = `https://api.hubspot.com/crm/v3/objects/2-146301108`;
+    const updatedEndpoint = `https://api.hubspot.com/crm/v3/objects/2-146301108`;
     const headers = {
         Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
         'Content-Type': 'application/json'
     };
 
     try {
-        await axios.post(updateContact, update, { headers } );
+        await axios.post(updatedEndpoint, update, { headers } );
         res.redirect('/', );
     } catch(err) {
         console.error(err);
