@@ -1,0 +1,24 @@
+doctype html
+html
+    head
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body.homepage
+        a(href="/") Return to Homepage
+
+        div.form-section
+            h1 Create or Update Game Character
+            form.form(method="post", action="/update-cobj")
+                .form-group
+                    label(for="name") Name
+                    input#name(type="text", name="name", required, placeholder="e.g., Lara Croft")
+                .form-group
+                    label(for="bio") Bio
+                    textarea#bio(name="bio", rows="4", placeholder="Short biography")
+                .form-group
+                    label(for="country") Country
+                    input#country(type="text", name="country", placeholder="e.g., United Kingdom")
+                .actions
+                    button.btn(type="submit") Save
+

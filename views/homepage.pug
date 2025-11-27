@@ -1,0 +1,35 @@
+doctype html
+html
+    head
+        title= `${title || 'Characters'}`
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body.homepage
+        a(href="/") Home
+
+        div.table-section
+            a(href="/update-cobj") Add/Update Game Characters
+        
+            if !characters || !characters.length
+                h1 No characters found
+                p Try adding some characters first.
+            else
+                h1 Characters
+                table.tableName
+                    thead
+                        tr
+                            th Name
+                            th Bio
+                            th Country
+                    tbody
+                        each ch in characters
+                            tr
+                                if ch && ch.properties
+                                    td= ch.properties.name || ''
+                                    td= ch.properties.bio || ''
+                                    td= ch.properties.country || ''
+                                else
+                                    td= (ch && ch.name) || ''
+                                    td= (ch && ch.bio) || ''
+                                    td= (ch && ch.country) || ''
+
